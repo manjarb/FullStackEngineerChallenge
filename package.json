@@ -13,7 +13,7 @@
     "compose:up:force": "docker-compose up --build --force-recreate",
     "compose:background": "docker-compose up -d --build",
     "compose:down": "docker-compose down -v",
-    "shell:web": "docker exec -it node-web bash"
+    "shell:web": "docker exec -it node-web /bin/bash"
   },
   "author": "",
   "license": "ISC",

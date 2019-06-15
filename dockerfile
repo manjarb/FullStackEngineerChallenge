@@ -3,6 +3,8 @@ FROM node:8.16.0-alpine
 RUN mkdir /app
 WORKDIR /app
 
+RUN apk add --no-cache bash
+
 RUN npm install -g nodemon
 
 COPY package.json package.json
