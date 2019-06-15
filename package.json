@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "local": "SET NODE_ENV=development & nodemon --exec babel-node index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run local\" \"npm run client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -21,5 +24,15 @@
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^5.0.1",
     "validator": "^11.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.0.0",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.0.6",
+    "eslint-plugin-node": "^9.1.0"
   }
 }
