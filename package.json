@@ -4,10 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "local": "SET NODE_ENV=development & nodemon --exec babel-node index.js",
+    "local": "SET NODE_ENV=development & nodemon --exec babel-node ./index.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run local\" \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "install:client": "npm install --prefix client",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compose:up": "docker-compose up --build",
+    "compose:up:force": "docker-compose up --build --force-recreate",
+    "compose:background": "docker-compose up -d --build",
+    "compose:down": "docker-compose down -v",
+    "shell:web": "docker exec -it node-web bash"
   },
   "author": "",
   "license": "ISC",
