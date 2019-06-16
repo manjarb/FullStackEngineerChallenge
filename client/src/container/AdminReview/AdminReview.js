@@ -11,7 +11,7 @@ export class AdminReview extends React.Component {
     return (
       <Container>
         <AdminSidebar />
-        Admin Review Page euuueo eoeoueouuoe uuoeu eoae e e eeou
+        Admin Review Page
       </Container>
     )
   }
