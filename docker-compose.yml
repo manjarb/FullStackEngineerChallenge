@@ -1,23 +1,38 @@
 version: '3'
 
 services:
-  web:
-      build: '.'
-      container_name: node-web
-      # env_file:
-        # - '.env'
-      ports:
-        - '80:8000'
-        - '50:5000'
-        - '30:3000'
-      volumes:
-        - '.:/app'
-      networks:
-        - front-tier
-        - back-tier
-      # depends_on:
-        # - redis
-        # - db
+  api:
+    container_name: api
+    build: '.'
+    # env_file:
+      # - '.env'
+    ports:
+      - '5000:5000'
+    volumes:
+      - '.:/app'
+      - '/app/client/'
+    networks:
+      - front-tier
+      - back-tier
+    command: "npm run local"
+    # depends_on:
+      # - redis
+      # - db
+  client:
+    container_name: client
+    build: '.'
+    ports:
+      - '3000:3000'
+    volumes:
+      - './client:/app/client'
+    links:
+      - api
+    depends_on:
+      - api
+    networks:
+      - front-tier
+      - back-tier
+    command: "npm run client"
 
 networks:
   front-tier:

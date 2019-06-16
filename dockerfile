@@ -28,4 +28,5 @@ LABEL maintainer="Varis Darasirikul"
 
 VOLUME ["/app/public"]
 
-CMD npm rebuild node-sass --prefix client && npm run dev
+# CMD npm rebuild node-sass --prefix client && npm run dev
+CMD npm start

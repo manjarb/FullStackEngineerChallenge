@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
-import { AddEmployeeModal } from "../../component";
+import { connect } from 'react-redux'
+
+import { AddEmployeeModal } from "../../component"
+import { getEmployees } from '../../redux/actions'
 
 const Container = styled.div`
   padding-top: 15px;
@@ -10,29 +12,18 @@ const Container = styled.div`
   flex: 1;
 `
 
-export class AdminEmployee extends React.Component {
+export class AdminEmployeeComp extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
       isShowModal: false,
-      employeeList: []
     }
 
   }
 
   componentDidMount() {
-    this.getEmployeeList()
-  }
-
-  getEmployeeList = () => {
-    axios.get('/api/employees')
-      .then((res) => {
-        console.log(res, 'ueoueou')
-        this.setState({
-          employeeList: res.data.result
-        })
-      })
+    this.props.getEmployees()
   }
 
   showEmployeeModal = () => {
@@ -42,12 +33,8 @@ export class AdminEmployee extends React.Component {
   }
 
   addEmployee = (data) => {
-    console.log('aii eaoeo')
-    const currentEmployeeList = this.state.employeeList
-    currentEmployeeList.unshift(data)
     this.setState({
       isShowModal: false,
-      employeeList: currentEmployeeList
     })
 
   }
@@ -59,7 +46,8 @@ export class AdminEmployee extends React.Component {
   }
 
   render() {
-    const { employeeList, isShowModal } = this.state
+    const { isShowModal } = this.state
+    const { employees } = this.props
 
     return (
       <Container>
@@ -81,7 +69,7 @@ export class AdminEmployee extends React.Component {
               </tr>
             </thead>
             <tbody>
-              {employeeList.map((emp) =>
+              {employees.map((emp) =>
                 <tr key={`emp-${emp.id}`}>
                   <td>{emp.empId}</td>
                   <td>{emp.firstName}</td>
@@ -108,3 +96,13 @@ export class AdminEmployee extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  employees: state.employees
+})
+
+const mapDispatchToProps = dispatch => ({
+  getEmployees: () => dispatch(getEmployees())
+})
+
+export const AdminEmployee = connect(mapStateToProps, mapDispatchToProps)(AdminEmployeeComp)

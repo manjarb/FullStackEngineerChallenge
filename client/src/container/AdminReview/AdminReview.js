@@ -1,5 +1,5 @@
 import React from 'react'
-import { AdminEmployee, AdminSidebar } from "../../component"
+import { AdminSidebar } from "../../component"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -11,6 +11,7 @@ export class AdminReview extends React.Component {
     return (
       <Container>
         <AdminSidebar />
+        Admin Review Page euuueo eoeoueouuoe uuoeu eoae e e eeou
       </Container>
     )
   }
