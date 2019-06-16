@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import { Link } from "react-router-dom"
 
 const Sidebar = styled.div`
   padding: 1rem;
@@ -12,8 +13,12 @@ const AdminSidebar = () => (
         Admin
       </p>
       <ul className="menu-list">
-        <li><a>Employees</a></li>
-        <li><a>Reviews</a></li>
+        <li>
+          <Link to="/admin">Employees</Link>
+        </li>
+        <li>
+          <Link to="/admin/review">Reviews</Link>
+        </li>
       </ul>
     </aside>
   </Sidebar>

@@ -1,4 +1,4 @@
-FROM node:8.16.0
+FROM node:8.16.0-jessie
 
 RUN mkdir /app
 WORKDIR /app
@@ -18,7 +18,8 @@ COPY client/package.json client/package.json
 
 RUN npm install
 RUN npm run install:client
-RUN cd client && npm uninstall --save node-sass && npm cache clean --force && npm install --save node-sass && npm rebuild node-sass --force
+# RUN npm rebuild node-sass --force
+# RUN cd client && npm rebuild node-sass --force
 # RUN npm run sass:rebuild:client
 
 COPY . .
@@ -27,4 +28,4 @@ LABEL maintainer="Varis Darasirikul"
 
 VOLUME ["/app/public"]
 
-CMD npm run dev
+CMD npm rebuild node-sass --prefix client && npm run dev
