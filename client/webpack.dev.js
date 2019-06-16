@@ -8,6 +8,12 @@ module.exports = merge(common, {
     contentBase: './dist',
     port: 3000,
     hot: true,
-    historyApiFallback: true
+    historyApiFallback: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        secure: false
+      }
+    }
   }
 });

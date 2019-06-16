@@ -1,10 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { version } from './helper/variables';
+// import { version } from './helper/variables'
+import AdminRoutes from './routes/adminRoutes'
 
 const app = express()
 
-app.use(`${version}/api/**`, bodyParser.json())
+app.use('/api/**', bodyParser.json())
+
+AdminRoutes(app)
 
 if (process.env.NODE_ENV === 'production') {
   // Express wil serve up production assets
