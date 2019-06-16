@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
+import axios from 'axios'
 
-import { AddEmployeeModal } from "../../component"
+import { AddEmployeeModal, Loading } from "../../component"
 import { getEmployees } from '../../redux/actions'
 
 const Container = styled.div`
@@ -18,6 +19,7 @@ export class AdminEmployeeComp extends React.Component {
     super(props)
     this.state = {
       isShowModal: false,
+      isLoading: false
     }
 
   }
@@ -34,9 +36,48 @@ export class AdminEmployeeComp extends React.Component {
 
   addEmployee = (data) => {
     this.setState({
-      isShowModal: false,
+      isLoading: true,
     })
 
+    axios.post('/api/employees', data)
+      .then((res) => {
+        this.setState({
+          isShowModal: false,
+          isLoading: false
+        })
+        this.props.getEmployees()
+      })
+      .catch(e => {
+        this.setState({
+          isLoading: false
+        })
+        alert('Create Employee error')
+        console.error(e)
+      })
+  }
+
+  deleteEmp = (id) => {
+    const r = confirm("Are you sure to Delete?");
+    if (r === true) {
+      this.setState({
+        isLoading: true,
+      })
+
+      axios.delete('/api/employees/' + id)
+        .then((res) => {
+          this.props.getEmployees()
+          this.setState({
+            isLoading: false
+          })
+        })
+        .catch(e => {
+          alert('Delete Employee error')
+          console.error(e)
+          this.setState({
+            isLoading: false
+          })
+        })
+    }
   }
 
   closeEmployeeModal = () => {
@@ -46,7 +87,7 @@ export class AdminEmployeeComp extends React.Component {
   }
 
   render() {
-    const { isShowModal } = this.state
+    const { isShowModal, isLoading } = this.state
     const { employees } = this.props
 
     return (
@@ -70,14 +111,16 @@ export class AdminEmployeeComp extends React.Component {
             </thead>
             <tbody>
               {employees.map((emp) =>
-                <tr key={`emp-${emp.id}`}>
+                <tr key={`emp-${emp._id}`}>
                   <td>{emp.empId}</td>
                   <td>{emp.firstName}</td>
                   <td>{emp.lastName}</td>
                   <td>{emp.position}</td>
                   <td>{emp.department}</td>
                   <td>
-                    <button className="button is-danger">Delete</button>
+                    <button
+                      className="button is-danger"
+                      onClick={() => this.deleteEmp(emp._id)}>Delete</button>
                   </td>
                 </tr>
               )}
@@ -91,7 +134,7 @@ export class AdminEmployeeComp extends React.Component {
             closeModal={this.closeEmployeeModal}
           />
         }
-
+        {isLoading && <Loading />}
       </Container>
     )
   }

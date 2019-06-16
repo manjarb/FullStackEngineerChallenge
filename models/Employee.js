@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose'
 
 const employeeSchema = new Schema({
+  empId: {
+    type: Number,
+    trim: true,
+  },
   firstName: {
     type: String,
     trim: true,
