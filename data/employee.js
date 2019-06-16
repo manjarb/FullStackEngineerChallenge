@@ -1,9 +1,9 @@
 import faker from 'faker'
 
-const employees = []
+const employeesDummy = []
 
 for (let i = 0; i < 20; i += 1) {
-  employees.push({
+  employeesDummy.push({
     id: i,
     empId: faker.random.number(9999999),
     firstName: faker.name.firstName(),
@@ -13,4 +13,4 @@ for (let i = 0; i < 20; i += 1) {
   })
 }
 
-export { employees }
+export { employeesDummy }

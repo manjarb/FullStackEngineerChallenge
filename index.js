@@ -1,10 +1,17 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import mongoose from 'mongoose'
+import keys from './config/keys'
 // import { version } from './helper/variables'
+
+import './models/Employee'
 import AdminRoutes from './routes/adminRoutes'
+
+mongoose.connect(keys.mongoURI)
 
 const app = express()
 
+app.use(bodyParser({ limit: '75mb' }))
 app.use('/api/**', bodyParser.json())
 
 AdminRoutes(app)
@@ -24,6 +31,4 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000
 app.timeout = 300000
-const server = app.listen(PORT)
-
-export default server
+app.listen(PORT)
