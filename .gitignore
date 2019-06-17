@@ -29,6 +29,6 @@ npm-debug.log
 # Cache
 .awcache
 
-dev.js
+# dev.js
 .env
 env.json
