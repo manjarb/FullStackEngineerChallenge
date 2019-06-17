@@ -11,7 +11,10 @@ mongoose.connect(keys.mongoURI)
 
 const app = express()
 
-app.use(bodyParser({ limit: '75mb' }))
+app.use(bodyParser.urlencoded({
+  extended: true,
+}))
+app.use(bodyParser.json())
 app.use('/api/**', bodyParser.json())
 
 AdminRoutes(app)
